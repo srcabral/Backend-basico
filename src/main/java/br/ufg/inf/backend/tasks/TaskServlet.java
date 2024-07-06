@@ -114,10 +114,8 @@ public class TaskServlet extends HttpServlet {
 	}
 
 	private TaskPriority searchPriority(String myPriority) {
-		TaskPriority priority;
-		try {
-			priority = TaskPriority.getPriority(myPriority);
-			return priority;
+		try { 
+			return TaskPriority.getPriority(myPriority);
 		} catch (IllegalArgumentException e) {
 			throw new RuntimeException("Prioridade informada invalida!! Informe entre: alta, media ou baixa");
 		}
