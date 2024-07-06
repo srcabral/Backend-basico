@@ -117,9 +117,10 @@ public class TaskServlet extends HttpServlet {
 		TaskPriority priority = null;
 		try {
 			priority = TaskPriority.getPriority(myPriority);
+			return priority;
 		} catch (IllegalArgumentException e) {
 			throw new RuntimeException("Prioridade informada invalida!! Informe entre: alta, media ou baixa");
 		}
-		return priority;
+		
 	}
 }
