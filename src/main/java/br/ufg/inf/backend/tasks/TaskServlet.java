@@ -114,7 +114,7 @@ public class TaskServlet extends HttpServlet {
 	}
 
 	private TaskPriority searchPriority(String myPriority) {
-		TaskPriority priority = null;
+		TaskPriority priority;
 		try {
 			priority = TaskPriority.getPriority(myPriority);
 			return priority;
