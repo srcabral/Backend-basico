@@ -36,6 +36,7 @@ public class TaskServlet extends HttpServlet {
 			for (Task task : tasksList) {
 				resp.getWriter().println(task.getMyTask() + " - Prioridade: " + task.getPriority());
 				resp.getWriter().println("Descricao: " + task.getDescription());
+				
 				resp.getWriter().println(tasksList.indexOf(task) + 1);
 			}
 		}
