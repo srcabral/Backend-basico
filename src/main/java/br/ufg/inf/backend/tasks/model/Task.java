@@ -2,40 +2,30 @@ package br.ufg.inf.backend.tasks.model;
 
 
 public class Task {
-	private String myTask;
-	private String description;
-	private TaskPriority priority;
+	private String taskName;
+	private TaskPriority taskPriority;
 	
 	
-	public Task(String myTask, String description, TaskPriority priority) {
-		this.myTask = myTask;
-		this.priority = priority;
-		this.description = description;
+	public Task(String taskName, TaskPriority taskPriority) {
+		this.taskName = taskName;
+		this.taskPriority = taskPriority;
 	}
 	
 	
-	public String getMyTask() {
-		return this.myTask;
+	public String getTaskName() {
+		return this.taskName;
 	}
 	
-	public void setMyTask(String myTask) {
-		this.myTask = myTask;
+	public void setTaskName(String taskName) {
+		this.taskName = taskName;
 	}
 	
-	public String getDescription() {
-		return this.description;
+	public TaskPriority getTaskPriority() {
+		return this.taskPriority;
 	}
 	
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
-	public TaskPriority getPriority() {
-		return this.priority;
-	}
-	
-	public void setTaskPriority(TaskPriority priority) {
-		this.priority = priority;
+	public void setTaskPriority(TaskPriority taskPriority) {
+		this.taskPriority = taskPriority;
 	}
 	
 }
