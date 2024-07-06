@@ -41,27 +41,32 @@ public class TaskServlet extends HttpServlet {
 
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		int indice;
 
+		myNewTask = req.getParameter("task");
+		myNewPriority = req.getParameter("priority");
 		try {
-			myNewTask = req.getParameter("task");
-			myNewPriority = req.getParameter("priority");
+			indice = Integer.parseInt(req.getParameter("index"));
+		} catch (NumberFormatException e) {
+			throw new RuntimeException("Valor para o indice invalido!");
+		}
+
+		if (listIsEmpty(resp)) {
+			return;
+		} else {
 
 			TaskPriority validatePriority = searchPriority(myNewPriority);
 
-			listIsEmpty(resp);
-
 			for (Task task : tasksList) {
-				if (task.getTaskName() == myNewTask) {
-					task.setTaskPriority(validatePriority);
-					resp.getWriter().append("Tarefa adicionada com sucesso!!");
+				if (tasksList.indexOf(task) == indice - 1) {
+					task.setTaskName(myNewTask);
+					task.setTaskPriority(searchPriority(myNewPriority));
+					resp.getWriter().append("Tarefa atualizada com sucesso!!");
 					return;
 				}
 			}
 
-			resp.getWriter().append("Tarefa nao encontrada");
-
-		} catch (Exception e) {
-			resp.getWriter().append(e.getMessage());
+			resp.getWriter().append(String.format("Tarefa nao encontrada. Sua lista possui apenas %d tarefa(s) cadastrada(s)", tasksList.size()));
 		}
 
 	}
@@ -84,10 +89,23 @@ public class TaskServlet extends HttpServlet {
 
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		myNewTask = req.getParameter("task");
 
+		if (listIsEmpty(resp)) {
+			return;
+		} else {
+			for (Task task : tasksList) {
+				if (task.getTaskName().equals(myNewTask)) {
+					tasksList.remove(tasksList.indexOf(task));
+					resp.getWriter().append(String.format("Tarefa %s removida com sucesso!", myNewTask));
+				} else {
+					resp.getWriter().append("Voce nao possui essa tarefa na sua lista! Nao eh possivel remover");
+				}
+			}
+		}
 	}
 
-	private Boolean listIsEmpty(HttpServletResponse resp) throws IOException{
+	private Boolean listIsEmpty(HttpServletResponse resp) throws IOException {
 		if (tasksList.isEmpty()) {
 			resp.getWriter().append("Sua lista de tarefas estah vazia!");
 			return true;
@@ -95,10 +113,10 @@ public class TaskServlet extends HttpServlet {
 		return false;
 	}
 
-	private TaskPriority searchPriority(String myPriority ) {
+	private TaskPriority searchPriority(String myPriority) {
 		TaskPriority priority = null;
 		try {
-			 priority = TaskPriority.getPriority(myPriority);
+			priority = TaskPriority.getPriority(myPriority);
 		} catch (IllegalArgumentException e) {
 			throw new RuntimeException("Prioridade informada invalida!! Informe entre: alta, media ou baixa");
 		}
