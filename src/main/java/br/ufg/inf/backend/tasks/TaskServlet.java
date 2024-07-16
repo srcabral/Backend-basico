@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.management.RuntimeErrorException;
-
 import br.ufg.inf.backend.tasks.model.Task;
 import br.ufg.inf.backend.tasks.model.TaskPriority;
 import jakarta.servlet.ServletException;
@@ -54,8 +52,6 @@ public class TaskServlet extends HttpServlet {
 		if (listIsEmpty(resp)) {
 			return;
 		} else {
-
-			TaskPriority validatePriority = searchPriority(myNewPriority);
 
 			for (Task task : tasksList) {
 				if (tasksList.indexOf(task) == indice - 1) {
