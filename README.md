@@ -4,3 +4,4 @@
 * Hello
 * Calculadora
 * TaskServlet
+* Tarefas (refatoração da TaskServelt com inverção de controle e injeção de dependência)
